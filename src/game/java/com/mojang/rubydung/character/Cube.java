@@ -13,6 +13,8 @@ public class Cube {
 	public float xRot;
 	public float yRot;
 	public float zRot;
+	private boolean compiled = false;
+	private int list = 0;
 
 	public Cube(int xTexOffs, int yTexOffs) {
 		this.xTexOffs = xTexOffs;
@@ -61,12 +63,23 @@ public class Cube {
 	}
 
 	public void render() {
+		if(!this.compiled) {
+			this.compile();
+		}
+
 		float c = 57.29578F;
 		GL11.glPushMatrix();
 		GL11.glTranslatef(this.x, this.y, this.z);
 		GL11.glRotatef(this.zRot * c, 0.0F, 0.0F, 1.0F);
 		GL11.glRotatef(this.yRot * c, 0.0F, 1.0F, 0.0F);
 		GL11.glRotatef(this.xRot * c, 1.0F, 0.0F, 0.0F);
+		GL11.glCallList(this.list);
+		GL11.glPopMatrix();
+	}
+
+	private void compile() {
+		this.list = GL11.glGenLists(1);
+		GL11.glNewList(this.list, GL11.GL_COMPILE);
 		GL11.glBegin(GL11.GL_QUADS);
 
 		for(int i = 0; i < this.polygons.length; ++i) {
@@ -74,6 +87,7 @@ public class Cube {
 		}
 
 		GL11.glEnd();
-		GL11.glPopMatrix();
+		GL11.glEndList();
+		this.compiled = true;
 	}
 }

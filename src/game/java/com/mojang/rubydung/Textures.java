@@ -12,7 +12,6 @@ import net.lax1dude.eaglercraft.internal.buffer.IntBuffer;
 
 public class Textures {
 	private static HashMap<String, Integer> idMap = new HashMap();
-	private static int lastId = -9999999;
 
 	public static int loadTexture(String resourceName, int mode) {
         if(idMap.containsKey(resourceName)) {

@@ -5,7 +5,7 @@ import com.mojang.rubydung.phys.AABB;
 import java.util.ArrayList;
 
 public class Entity {
-	private Level level;
+	protected Level level;
 	public float xo;
 	public float yo;
 	public float zo;
@@ -19,7 +19,10 @@ public class Entity {
 	public float xRot;
 	public AABB bb;
 	public boolean onGround = false;
+	public boolean removed = false;
 	protected float heightOffset = 0.0F;
+	protected float bbWidth = 0.6F;
+	protected float bbHeight = 1.8F;
 
 	public Entity(Level level) {
 		this.level = level;
@@ -32,13 +35,22 @@ public class Entity {
 		float z = (float)Math.random() * (float)this.level.height;
 		this.setPos(x, y, z);
 	}
+	
+	public void remove() {
+		this.removed = true;
+	}
 
-	private void setPos(float x, float y, float z) {
+	protected void setSize(float w, float h) {
+		this.bbWidth = w;
+		this.bbHeight = h;
+	}
+
+	protected void setPos(float x, float y, float z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		float w = 0.3F;
-		float h = 0.9F;
+		float w = this.bbWidth / 2.0F;
+		float h = this.bbHeight / 2.0F;
 		this.bb = new AABB(x - w, y - h, z - w, x + w, y + h, z + w);
 	}
 
@@ -114,5 +126,12 @@ public class Entity {
 			this.xd += xa * cos - za * sin;
 			this.zd += za * cos + xa * sin;
 		}
+	}
+	
+	public boolean isLit() {
+		int xTile = (int)this.x;
+		int yTile = (int)this.y;
+		int zTile = (int)this.z;
+		return this.level.isLit(xTile, yTile, zTile);
 	}
 }

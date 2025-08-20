@@ -1,8 +1,8 @@
 package com.mojang.rubydung.level;
 
 import com.mojang.rubydung.phys.AABB;
-
 import com.mojang.util.GLAllocation;
+
 import net.lax1dude.eaglercraft.internal.buffer.FloatBuffer;
 
 import org.lwjgl.opengl.GL11;
@@ -166,7 +166,7 @@ public class Frustum {
 		return true;
 	}
 
-	public boolean cubeInFrustum(AABB aabb) {
+	public boolean isVisible(AABB aabb) {
 		return this.cubeInFrustum(aabb.x0, aabb.y0, aabb.z0, aabb.x1, aabb.y1, aabb.z1);
 	}
 }

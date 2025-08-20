@@ -8,6 +8,7 @@ public class Tesselator {
     private boolean hasColor = false;
     private boolean hasTexture = false;
     private boolean drawing = false;
+	public static Tesselator instance = new Tesselator();
 
     public void init() {
         if (drawing) {
@@ -34,6 +35,11 @@ public class Tesselator {
         this.hasColor = true;
         GL11.glColor3f(r, g, b);
     }
+    
+	public void vertexUV(float x, float y, float z, float u, float v) {
+		this.tex(u, v);
+		this.vertex(x, y, z);
+	}
 
     public void vertex(float x, float y, float z) {
         if (hasColor) {

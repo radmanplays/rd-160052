@@ -36,18 +36,18 @@ public class Player extends Entity {
 		}
 
 		if((Keyboard.isKeyDown(Keyboard.KEY_SPACE)) && this.onGround) {
-			this.yd = 0.12F;
+			this.yd = 0.5F;
 		}
 
-		this.moveRelative(xa, ya, this.onGround ? 0.02F : 0.005F);
-		this.yd = (float)((double)this.yd - 0.005D);
+		this.moveRelative(xa, ya, this.onGround ? 0.1F : 0.02F);
+		this.yd = (float)((double)this.yd - 0.08D);
 		this.move(this.xd, this.yd, this.zd);
 		this.xd *= 0.91F;
 		this.yd *= 0.98F;
 		this.zd *= 0.91F;
 		if(this.onGround) {
-			this.xd *= 0.8F;
-			this.zd *= 0.8F;
+			this.xd *= 0.7F;
+			this.zd *= 0.7F;
 		}
 
 	}

@@ -25,7 +25,7 @@ public class Polygon {
 
 		for(int i = 3; i >= 0; --i) {
 			Vertex v = this.vertices[i];
-			GL11.glTexCoord2f(v.u / 64.0F, v.v / 32.0F);
+			GL11.glTexCoord2f(v.u / 63.999F, v.v / 31.999F);
 			GL11.glVertex3f(v.pos.x, v.pos.y, v.pos.z);
 		}
 

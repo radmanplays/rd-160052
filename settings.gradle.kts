@@ -15,7 +15,7 @@ pluginManagement {
 	}
 }
 
-rootProject.name = "rd-132328"
+rootProject.name = "rd-160052"
 
 include("target_lwjgl_desktop")
 include("target_teavm_javascript")
