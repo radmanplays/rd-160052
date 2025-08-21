@@ -65,7 +65,9 @@ public class RubyDung implements Runnable {
 		GL11.glClearDepth(1.0D);
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glDepthFunc(GL11.GL_LEQUAL);
-		setupProjection(this.width, this.height);
+		GL11.glMatrixMode(GL11.GL_PROJECTION);
+		GL11.glLoadIdentity();
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		this.level = new Level(256, 256, 64);
 		this.levelRenderer = new LevelRenderer(this.level);
 		this.player = new Player(this.level);
@@ -77,13 +79,6 @@ public class RubyDung implements Runnable {
 			this.zombies.add(zombie);
 		}
 	}
-	
-    private void setupProjection(int width, int height) {
-        GL11.glMatrixMode(GL11.GL_PROJECTION);
-        GL11.glLoadIdentity();
-        GLU.gluPerspective(70.0F, (float) width / height, 0.05F, 1000.0F);
-        GL11.glMatrixMode(GL11.GL_MODELVIEW);
-    }
 
 	public void destroy() {
 		this.level.save();
@@ -189,15 +184,10 @@ public class RubyDung implements Runnable {
 	}
 
 	private void setupCamera(float a) {
-        this.width = Display.getWidth();
-        this.height = Display.getHeight();
-
-	    if (width != lastWidth || height != lastHeight) {
-	        lastWidth = width;
-	        lastHeight = height;
-            GL11.glViewport(0, 0, this.width, this.height);
-            setupProjection(this.width, this.height);
-        }
+		GL11.glMatrixMode(GL11.GL_PROJECTION);
+		GL11.glLoadIdentity();
+		GLU.gluPerspective(70.0F, (float)this.width / (float)this.height, 0.05F, 1000.0F);
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glLoadIdentity();
 		this.moveCameraToPlayer(a);
 	}
@@ -311,16 +301,6 @@ public class RubyDung implements Runnable {
 			}
 		}
 
-		while(Keyboard.next()) {
-			Mouse.setGrabbed(true);
-			if(Keyboard.getEventKey() == Keyboard.KEY_RETURN && Keyboard.getEventKeyState()) {
-				this.level.save();
-			}
-			if(Keyboard.getEventKey() == Keyboard.KEY_BACK && Keyboard.getEventKeyState()) {
-				this.level.reset();
-				this.player.resetPos();
-			}
-		}
 
 		if (Display.wasResized()) {
 			this.width = Display.getWidth();
@@ -414,7 +394,7 @@ public class RubyDung implements Runnable {
 			GL11.glEnable(GL11.GL_LIGHTING);
 			GL11.glEnable(GL11.GL_COLOR_MATERIAL);
 			float br = 0.6F;
-			GL11.glLightModel(GL11.GL_LIGHT_MODEL_AMBIENT, this.getBuffer(br, br, br, 1.0F));
+//			GL11.glLightModel(GL11.GL_LIGHT_MODEL_AMBIENT, this.getBuffer(br, br, br, 1.0F));
 		}
 
 	}

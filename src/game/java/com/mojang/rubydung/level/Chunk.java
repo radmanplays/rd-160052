@@ -76,6 +76,10 @@ public class Chunk {
 	}
 
 	public void render(int layer) {
+	    if (this.dirty) {
+	        this.rebuild();
+	    }
+
 		GL11.glCallList(this.lists + layer);
 	}
 
