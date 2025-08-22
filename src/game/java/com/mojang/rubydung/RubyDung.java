@@ -121,6 +121,18 @@ public class RubyDung implements Runnable {
 		}
 
 	}
+	
+	private int saveCountdown = 600;
+
+	private void levelSave() {
+	    if (level == null) return;
+
+	    saveCountdown--;
+	    if (saveCountdown <= 0) {
+	        level.save();
+	        saveCountdown = 600;
+	    }
+	}
 
 	public void tick() {
 		while(Keyboard.next()) {
@@ -162,6 +174,7 @@ public class RubyDung implements Runnable {
 		}
 
 		this.player.tick();
+		levelSave();
 	}
 
 	private void moveCameraToPlayer(float a) {
