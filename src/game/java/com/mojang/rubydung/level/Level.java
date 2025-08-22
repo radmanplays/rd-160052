@@ -91,7 +91,7 @@ public class Level {
 
 			VFile2 file = new VFile2("level.dat");
 			if (!file.exists()) {
-				return true;
+				return false;
 			}
 			DataInputStream e = new DataInputStream(new GZIPInputStream(file.getInputStream()));
 			e.readFully(this.blocks);
